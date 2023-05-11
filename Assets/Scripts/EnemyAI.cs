@@ -16,6 +16,7 @@ public class EnemyAI : MonoBehaviour
     private List<Transform> _wayPoints;
     private NavMeshAgent _agent;
     private Animator _animator;
+    private Barrier _cover;
     private int _currentPoint = 0;
 
     private bool _takingCover = false;
@@ -39,7 +40,6 @@ public class EnemyAI : MonoBehaviour
         {
             _agent.destination = _wayPoints[_currentPoint].position;
         }
-        SetAnimatorSpeed(4);
     }
 
     // Update is called once per frame
@@ -47,6 +47,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (_agent.remainingDistance < 0.5f)
         {
+
             if (_currentPoint == _wayPoints.Count - 1)
             {
                 Destroy(this.gameObject);
@@ -61,22 +62,25 @@ public class EnemyAI : MonoBehaviour
 
         CheckIfCovering();
     }
+#region Animations
 
-    void SetAnimatorSpeed(float speed)
+    void SetSpeed(float speed, float animationSpeed)
     {
-        _animator.SetFloat("Speed", speed);
         _agent.speed = speed;
+        _animator.SetFloat("Speed", animationSpeed);
     }
 
     void CheckIfCovering()
     {
         if(_takingCover == true)
         {
-            _animator.SetBool("Cover_Idle", true);
+            _animator.SetBool("Hiding", true);
+            SetSpeed(0, 4);
         }
         else
         {
-            _animator.SetBool("Cover_Idle", false);
+            _animator.SetBool("Hiding", false);
+            SetSpeed(4, 4);
         }
     }
 
@@ -84,4 +88,33 @@ public class EnemyAI : MonoBehaviour
     {
         _animator.SetTrigger("Death");
     }
+    #endregion
+
+    #region Barriers
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Barrier Detected");
+
+        if (other.tag == "Barrier")
+        {       
+            _cover = other.transform.GetComponent<Barrier>();
+        }
+    }
+
+    IEnumerator TakingCoverRoutine()
+    {
+        float time = Random.Range(1, 5);
+        yield return new WaitForSeconds(time);
+        _takingCover = false;
+        _cover.Unoccupied();
+    }
+
+    public void TakingCover()
+    {
+        _takingCover = true;
+        StartCoroutine(TakingCoverRoutine());
+    }
+
+    #endregion
 }
