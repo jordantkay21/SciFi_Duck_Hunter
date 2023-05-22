@@ -50,7 +50,7 @@ public class EnemyAI : MonoBehaviour
 
             if (_currentPoint == _wayPoints.Count - 1)
             {
-                Destroy(this.gameObject);
+                this.gameObject.SetActive(false);
             }
             else
             {

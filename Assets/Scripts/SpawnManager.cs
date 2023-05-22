@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// Controls WHEN spawnable Game Objects spawn and WHERE they spawn at
@@ -9,15 +10,17 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+
+    private Vector3 enemyStartPos = new Vector3(31, 0, 1);
+
+    private void Update()
     {
-        
+        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        {
+            GameObject enemy = PoolManager.Instance.RequestEnemy();
+            enemy.transform.position = enemyStartPos;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }
