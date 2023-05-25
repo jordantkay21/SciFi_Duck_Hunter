@@ -11,15 +11,24 @@ using UnityEngine.InputSystem;
 public class SpawnManager : MonoBehaviour
 {
 
-    private Vector3 enemyStartPos = new Vector3(31, 0, 1);
+    private bool _stopSpawning = false;
+    private Vector3 enemyStartPos = new Vector3(35, 0, 0);
 
-    private void Update()
+    private void Start()
     {
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        StartCoroutine(SpawnEnemy());
+    }
+
+    IEnumerator SpawnEnemy()
+    {
+        yield return new WaitForEndOfFrame();
+        while (_stopSpawning == false)
         {
             GameObject enemy = PoolManager.Instance.RequestEnemy();
             enemy.transform.position = enemyStartPos;
+            yield return new WaitForSeconds(Random.Range(3.0f, 5.0f));
         }
+
     }
 
     

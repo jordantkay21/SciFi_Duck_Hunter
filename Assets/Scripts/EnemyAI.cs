@@ -17,6 +17,7 @@ public class EnemyAI : MonoBehaviour
     private NavMeshAgent _agent;
     private Animator _animator;
     private Barrier _cover;
+    private NavMeshObstacle _obstacle;
     private int _currentPoint = 0;
 
     private bool _takingCover = false;
@@ -35,6 +36,10 @@ public class EnemyAI : MonoBehaviour
         {
             Debug.LogError("EnemyAI did not detect NavMesh Agent");
         }
+
+        _obstacle = GetComponent<NavMeshObstacle>();
+        if (_obstacle == null)
+            Debug.LogError("EnemyAI did not detect NavMesh Obstacle");
 
         if (_agent != null)
         {
@@ -106,6 +111,8 @@ public class EnemyAI : MonoBehaviour
     {
         float time = Random.Range(1, 5);
         yield return new WaitForSeconds(time);
+        _obstacle.enabled = false;
+        _agent.enabled = true;
         _takingCover = false;
         _cover.Unoccupied();
     }
@@ -113,6 +120,8 @@ public class EnemyAI : MonoBehaviour
     public void TakingCover()
     {
         _takingCover = true;
+        _agent.enabled = false;
+        _obstacle.enabled = true;
         StartCoroutine(TakingCoverRoutine());
     }
 

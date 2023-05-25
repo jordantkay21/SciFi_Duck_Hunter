@@ -490,9 +490,11 @@ GameObject:
   - component: {fileID: 7347812200209463018}
   - component: {fileID: 3388625777844431602}
   - component: {fileID: 6168843655647538593}
+  - component: {fileID: -6505508405119385469}
+  - component: {fileID: 8410150675024252154}
   m_Layer: 0
   m_Name: EnemyAI
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -505,7 +507,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3982953747402854286}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.87}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -524,7 +526,7 @@ Animator:
   m_GameObject: {fileID: 3982953747402854286}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 930e4ae0f8bac49239cf5c624fbd0c2e, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f10e392824b77854e9373522eee4405c, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -542,7 +544,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3982953747402854286}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
@@ -557,7 +559,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 3982953747402854286}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5000001
+  m_Radius: 0.5
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -567,7 +569,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 1
+  m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &6168843655647538593
@@ -590,12 +592,12 @@ MonoBehaviour:
   - {fileID: 6686229782596723571, guid: b29839ef3426609458702133f031c9d1, type: 3}
   - {fileID: 9131977496901161322, guid: 64e8ff2a9eb8da24a98979a9c1c90b42, type: 3}
   - {fileID: 4995258361273466855, guid: b9c2e95cee867c74d897506f49666ffc, type: 3}
-  - {fileID: 596079302580586434, guid: ad787dc589f2255429d48de90afe7b83, type: 3}
-  - {fileID: 1243657235181728945, guid: f6826268fff495142a247b4243986dc7, type: 3}
-  - {fileID: 5917241307642723635, guid: 11b0f80e520fd7041a618fa5477bc9d6, type: 3}
-  - {fileID: 1626639255141670117, guid: 773b5632939597f49970c424db1068a1, type: 3}
-  - {fileID: 1474268363020124441, guid: 4570c42ad1cfc8d489acc5dba7b5ff20, type: 3}
   - {fileID: 7370607455924161732, guid: 6095fcc529af2324ab971eb336e0a9a7, type: 3}
+  - {fileID: 1474268363020124441, guid: 4570c42ad1cfc8d489acc5dba7b5ff20, type: 3}
+  - {fileID: 1626639255141670117, guid: 773b5632939597f49970c424db1068a1, type: 3}
+  - {fileID: 5917241307642723635, guid: 11b0f80e520fd7041a618fa5477bc9d6, type: 3}
+  - {fileID: 1243657235181728945, guid: f6826268fff495142a247b4243986dc7, type: 3}
+  - {fileID: 596079302580586434, guid: ad787dc589f2255429d48de90afe7b83, type: 3}
   - {fileID: 4877555614150254975, guid: df93fac9a1a9eb84f9bb51047a8d0af4, type: 3}
   - {fileID: 3419386493983000404, guid: a06b5465be47a254586f3a4e8a7a2139, type: 3}
   - {fileID: 4566427167855966714, guid: 29b5f074e7af9004598ac51b24ae4dec, type: 3}
@@ -603,6 +605,38 @@ MonoBehaviour:
   - {fileID: 2871786355585904178, guid: 4eadd7f06c7acf7409de68bd23fa51e8, type: 3}
   - {fileID: 4717802404073910373, guid: 141bc402a9930664ababf02f6773e10a, type: 3}
   - {fileID: 7844692915072640015, guid: f8822c43c50999d4ebd3565b804628cb, type: 3}
+--- !u!54 &-6505508405119385469
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3982953747402854286}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!208 &8410150675024252154
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3982953747402854286}
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.71, y: 1.21, z: 0.71}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.74, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &4030551458456223006
 GameObject:
   m_ObjectHideFlags: 0

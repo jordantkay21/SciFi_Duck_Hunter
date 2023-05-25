@@ -7,18 +7,6 @@ public class Barrier : MonoBehaviour
     [SerializeField]
     private bool _isOccupied = false;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Enemy Detected");
@@ -37,5 +25,10 @@ public class Barrier : MonoBehaviour
     public void Unoccupied()
     {
         _isOccupied = false;
+    }
+
+    public bool IsOccupied()
+    {
+        return _isOccupied;
     }
 }
